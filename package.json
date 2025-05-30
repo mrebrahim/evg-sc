@@ -7,7 +7,7 @@
     "start": "bash .render/start.sh"
   },
   "dependencies": {
-    "puppeteer": "^21.6.1"
+    "puppeteer": "19.11.1"
   },
   "engines": {
     "node": "20.x"
