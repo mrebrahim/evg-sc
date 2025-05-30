@@ -1,0 +1,15 @@
+{
+  "name": "evg-scraper",
+  "version": "1.0.0",
+  "description": "Login to EVG and download Excel file",
+  "main": "index.js",
+  "scripts": {
+    "start": "bash .render/start.sh"
+  },
+  "dependencies": {
+    "puppeteer": "^21.6.1"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}
