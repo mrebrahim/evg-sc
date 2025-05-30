@@ -1,7 +1,6 @@
 {
-  "name": "evg-scraper",
+  "name": "evg-scraper-clean",
   "version": "1.0.0",
-  "description": "Login to EVG and download Excel file",
   "main": "index.js",
   "scripts": {
     "start": "bash .render/start.sh"
