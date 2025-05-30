@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "bash .render/start.sh",
-    "postinstall": "puppeteer install"
+    "postinstall": "node node_modules/puppeteer/install.js"
   },
   "dependencies": {
     "puppeteer": "19.11.1"
