@@ -1,13 +1,9 @@
 const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
 
 (async () => {
   const browser = await puppeteer.launch({
     headless: true,
-    args: [
-      '--proxy-server=http://proxy.toolip.io:31113'
-    ]
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-server=http://proxy.toolip.io:31113']
   });
 
   const page = await browser.newPage();
@@ -16,31 +12,25 @@ const path = require('path');
     password: 'gpmn6fj4gg3q'
   });
 
-  console.log("🚀 Logging in...");
-  await page.goto("https://evg.ae/_layouts/EVG/Login.aspx?language=ar", { waitUntil: "networkidle2" });
-
+  await page.goto('https://evg.ae/_layouts/EVG/Login.aspx?language=ar', { waitUntil: 'networkidle2' });
   await page.click('#ctl00_cphScrollMenu_rbtnCompany');
   await page.type('#ctl00_cphScrollMenu_txtCompnayTCF', '1140163127');
   await page.type('#ctl00_cphScrollMenu_txtLogin', '1070093478');
   await page.type('#ctl00_cphScrollMenu_txtPassword', 'Yzaa3vip@');
-
   await Promise.all([
     page.click('#ctl00_cphScrollMenu_btnLogin'),
-    page.waitForNavigation({ waitUntil: "networkidle2" }),
+    page.waitForNavigation({ waitUntil: 'networkidle2' }),
   ]);
 
-  console.log("✅ Logged in, navigating to vehicle page...");
-
-  const excelBtn = '#ctl00_PlaceHolderRightContent1_VehiclesList1_ctl00_excelExportButton';
-  await page.waitForSelector(excelBtn);
   const downloadPath = '/mnt/data';
   await page._client().send('Page.setDownloadBehavior', {
     behavior: 'allow',
     downloadPath,
   });
 
-  await page.click(excelBtn);
-  console.log("✅ File downloaded to:", downloadPath);
+  await page.click('#ctl00_PlaceHolderRightContent1_VehiclesList1_ctl00_excelExportButton');
+  await new Promise(resolve => setTimeout(resolve, 7000));
 
+  console.log('✅ File downloaded to:', downloadPath);
   await browser.close();
 })();
